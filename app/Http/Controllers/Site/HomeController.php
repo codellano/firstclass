@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 
+use SEO;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        SEO::setTitle('Meu titulo');
+        SEO::setDescription('Minha descrição');
+
         return view('site::home.index');
     }
 }
