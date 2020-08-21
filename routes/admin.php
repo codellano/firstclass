@@ -7,6 +7,5 @@ Route::namespace('Admin')
     ->prefix('admin')
     ->group(function() {
 
-    Route::get('/posts/index', 'PostsController@index')->name('admin.posts.index');
-
+    Route::get('/tasks/index', 'TasksController@index')->name('admin.tasks.index');
 });

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class TasksController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,6 +23,6 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin::posts.index');
+        return view('admin::tasks.index');
     }
 }

@@ -7,8 +7,8 @@ services:
         uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: laravel
-    container_name: laravel-app
+    image: todo
+    container_name: todo-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
@@ -16,11 +16,11 @@ services:
     environment:
       - COMPOSER_MEMORY_LIMIT=-1
     networks:
-      - laravel
+      - todo
 
   db:
     image: mysql:5.7
-    container_name: laravel-db
+    container_name: todo-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: homestead
@@ -29,58 +29,60 @@ services:
       MYSQL_USER: homestead
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
+    ports:
+      - 33066:3306
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
-      - laravel
+      - todo
 
   nginx:
     image: nginx:alpine
-    container_name: laravel-nginx
+    container_name: todo-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 9000:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - laravel
+      - todo
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: laravel-phpmyadmin
+    container_name: todo-phpmyadmin
     restart: always
     environment:
       - PMA_ARBITRARY=1
     links:
       - db
     ports:
-      - 8085:80
+      - 8086:80
     volumes:
       - /sessions
     networks:
-      - laravel
+      - todo
 
   redis:
     image: "redis:alpine"
-    container_name: laravel-redis
+    container_name: todo-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     networks:
-      - laravel
+      - todo
 
   maildev:
     image: djfarrelly/maildev
-    container_name: laravel-maildev
+    container_name: todo-maildev
     expose:
       - 25
     ports:
-      - 1080:80
-      - 1025:25
+      - 1081:80
+      - 1026:25
     networks:
-      - laravel
+      - todo
 
 networks:
-  laravel:
+  todo:
     driver: bridge
