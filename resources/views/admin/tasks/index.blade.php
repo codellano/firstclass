@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
 
 @section('content')
-tasks Index
+<todos-index></todos-index>
 @endsection
